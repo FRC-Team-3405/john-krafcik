@@ -11,7 +11,7 @@ class DriveCommand : Command() {
     }
 
     override fun execute() {
-        Robot.driveTrain.arcadeDrive()
+        Robot.driveTrain.mechanumDrive()
     }
 
     override fun isFinished(): Boolean = false
