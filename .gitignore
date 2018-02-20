@@ -3,4 +3,7 @@ build/
 .gradle/
 jeffbezos.*
 
-!.idea/runConfigurations/
+!.idea/
+
+.idea/*
+!.idea/runConfigurations
