@@ -12,7 +12,7 @@ class Robot : IterativeRobot() {
     }
 
     override fun robotInit() {
-        println("HI")
+        System.out.println("HI")
     }
 
     override fun disabledInit() {}
@@ -27,6 +27,7 @@ class Robot : IterativeRobot() {
 
 
     override fun disabledPeriodic() {}
+
 
     override fun autonomousPeriodic() {}
 
