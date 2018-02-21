@@ -1,6 +1,8 @@
 package frc.team3405.robot
 
+import edu.wpi.first.wpilibj.GenericHID
 import edu.wpi.first.wpilibj.Joystick
+import edu.wpi.first.wpilibj.buttons.JoystickButton
 
 object Xbox {
     const val AButton = 1
