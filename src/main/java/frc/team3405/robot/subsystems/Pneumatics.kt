@@ -3,18 +3,20 @@ package frc.team3405.robot.subsystems
 import edu.wpi.first.wpilibj.Compressor
 import edu.wpi.first.wpilibj.DoubleSolenoid
 import edu.wpi.first.wpilibj.command.Subsystem
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
-import frc.team3405.robot.Robot
-import frc.team3405.robot.commands.ShiftDownCommand
-import frc.team3405.robot.commands.ShiftUpCommand
 
 
 class Pneumatics: Subsystem() {
 
-    val shifter = PneumaticShifter(Compressor(0), DoubleSolenoid(4, 5))
+    val compressor = Compressor(0)
+
+    val shifter = PneumaticShifter(compressor, DoubleSolenoid(4, 5))
+    val leftPneumatic = PneumaticShifter(compressor, DoubleSolenoid(0, 1)) //TODO get channels
+    val rightPneumatic = PneumaticShifter(compressor, DoubleSolenoid(2, 3))
 
     override fun initDefaultCommand() {
         shifter.enabled()
+        leftPneumatic.enabled()
+        rightPneumatic.enabled()
     }
 
     fun shiftUp() {
@@ -23,6 +25,22 @@ class Pneumatics: Subsystem() {
 
     fun shiftDown() {
         shifter.shiftDown()
+    }
+
+    fun liftLeft() {
+        leftPneumatic.shiftUp()
+    }
+
+    fun dropLeft() {
+        leftPneumatic.shiftDown()
+    }
+
+    fun liftRight() {
+        rightPneumatic.shiftUp()
+    }
+
+    fun dropRight() {
+        rightPneumatic.shiftDown()
     }
 }
 
@@ -43,7 +61,7 @@ class PneumaticShifter(val compressor: Compressor, val doubleSolenoid: DoubleSol
     }
 
     fun shiftUp() {
-        System.out.println("Shift Up")
+        println("Shift Up")
         if(!isHighGear) {
             doubleSolenoid.set(DoubleSolenoid.Value.kForward)
             isHighGear = true
@@ -51,7 +69,7 @@ class PneumaticShifter(val compressor: Compressor, val doubleSolenoid: DoubleSol
     }
 
     fun shiftDown() {
-        System.out.println("Shift Down")
+        println("Shift Down")
         if(isHighGear) {
             doubleSolenoid.set(DoubleSolenoid.Value.kReverse)
             isHighGear = false
