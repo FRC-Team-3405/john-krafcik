@@ -13,8 +13,11 @@ object Xbox {
     const val RightBumper = 6
     const val BackButton = 7
     const val StartButton = 8
-    const val LeftJoystickButton = 9
-    const val RightJoystickButton = 10
+    const val nineButton = 9
+    const val tenButton = 10
+    const val elevenButton = 11
+    const val LeftJoystickButton = 12
+    const val RightJoystickButton = 13
     const val LeftX = 0
     const val LeftY = 1
     const val LeftTrigger = 2

@@ -1,5 +1,8 @@
 package frc.team3405.robot.commands
 
+import edu.wpi.first.wpilibj.command.Command
+import frc.team3405.robot.Robot
+
 class BeltCommand: Command() {
     init {
         requires(Robot.conveyor)

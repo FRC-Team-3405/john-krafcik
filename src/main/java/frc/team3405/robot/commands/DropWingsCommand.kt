@@ -1,6 +1,7 @@
 package frc.team3405.robot.commands
 
 import edu.wpi.first.wpilibj.command.Command
+import frc.team3405.robot.Robot
 
 class DropWingsCommand: Command() {
     init {
@@ -8,7 +9,9 @@ class DropWingsCommand: Command() {
     }
 
     override fun execute() {
-        //TODO
+        if(Robot.guitar.longButtonPressed) {
+            //TODO
+        }
     }
 
     override fun isFinished() = false

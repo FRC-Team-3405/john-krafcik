@@ -13,7 +13,7 @@ object Guitar {
     const val orangeButton = 5
 
     const val longButton = 9
-
+    const val buttonsByLongButton = 10
     const val powerButton = 13
 
     //Axis
@@ -30,4 +30,6 @@ class GuitarController(val joystick: Joystick) {
 
     val tiltBar
         get() = joystick.getPOV(Guitar.TiltBar)
+
+    val longButtonPressed = joystick.getRawButtonPressed(Guitar.longButton)
 }
