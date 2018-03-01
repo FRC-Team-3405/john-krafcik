@@ -12,6 +12,10 @@ object Guitar {
     const val blueButton = 4
     const val orangeButton = 5
 
+    const val longButton = 9
+
+    const val powerButton = 13
+
     //Axis
     const val WhammieBar = 2
 

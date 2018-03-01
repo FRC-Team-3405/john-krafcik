@@ -2,6 +2,7 @@ package frc.team3405.robot.subsystems
 
 import com.ctre.phoenix.motorcontrol.ControlMode
 import com.ctre.phoenix.motorcontrol.can.TalonSRX
+import edu.wpi.first.wpilibj.Timer
 import edu.wpi.first.wpilibj.command.Subsystem
 import frc.team3405.robot.Robot
 import frc.team3405.robot.commands.DriveCommand
@@ -44,5 +45,30 @@ class DriveTrain : Subsystem() {
         frontRight.set(ControlMode.PercentOutput, -right)
         backRight.set(ControlMode.PercentOutput, -right)
     }
+
+    fun driveTime(seconds: Double) {
+        val timer = Timer()
+        timer.reset()
+        timer.start()
+
+        while (timer.get() < seconds) {
+            frontLeft.set(ControlMode.PercentOutput, 0.5)
+            backLeft.set(ControlMode.PercentOutput, 0.5)
+
+            frontRight.set(ControlMode.PercentOutput, -0.5)
+            backRight.set(ControlMode.PercentOutput, -0.5)
+        }
+
+        timer.stop()
+
+
+        frontLeft.set(ControlMode.PercentOutput, 0.0)
+        backLeft.set(ControlMode.PercentOutput, 0.0)
+
+        frontRight.set(ControlMode.PercentOutput, 0.0)
+        backRight.set(ControlMode.PercentOutput, 0.0)
+
+    }
+
 }
 
