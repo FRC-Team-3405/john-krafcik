@@ -10,7 +10,7 @@ import frc.team3405.robot.Robot
 import frc.team3405.robot.commands.BeltCommand
 
 class ConveyorBelt: Subsystem() {
-    val motor = Talon(5) //TODO get port number
+    val motor = Spark(5) //TODO get port number
 
     override fun initDefaultCommand() {
         defaultCommand = BeltCommand()
