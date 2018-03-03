@@ -48,12 +48,15 @@ class AutonomousCommand: Command() {
     override fun execute() {
         Robot.pneumatics.shiftDown()
         Robot.driveTrain.driveTime(3.0)
-        when(DriverStation.getInstance().gameSpecificMessage[0]) {
-            'L' -> {
+        val message = DriverStation.getInstance().gameSpecificMessage
+        if(message.isNotEmpty()) {
+            when (message[0]) {
+                'L' -> {
 
-            }
-            'R' -> {
-                Robot.conveyor.moveBeltTimed(3.0)
+                }
+                'R' -> {
+                    Robot.conveyor.moveBeltTimed(3.0)
+                }
             }
         }
     }
