@@ -3,6 +3,7 @@ package frc.team3405.robot.subsystems
 import edu.wpi.first.wpilibj.Compressor
 import edu.wpi.first.wpilibj.DoubleSolenoid
 import edu.wpi.first.wpilibj.command.Subsystem
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
 
 
 class Pneumatics: Subsystem() {
@@ -17,6 +18,17 @@ class Pneumatics: Subsystem() {
         shifter.enabled()
         leftPneumatic.enabled()
         rightPneumatic.enabled()
+    }
+
+    fun reportPneumatics() {
+        SmartDashboard.putBoolean("Pressure Below Target Pressure", compressor.pressureSwitchValue)
+        SmartDashboard.putNumber("Compressor current", compressor.compressorCurrent)
+        SmartDashboard.putBoolean("Fault: Compressor current too high (If true, compressor drive is disabled)", compressor.compressorCurrentTooHighFault)
+        SmartDashboard.putBoolean("Sticky Fault: Compressor current too high (If true, compressor is disabled)", compressor.compressorCurrentTooHighStickyFault)
+        SmartDashboard.putBoolean("Fault: Compressor is shorted", compressor.compressorShortedFault)
+        SmartDashboard.putBoolean("Sticky Fault: Compressor is shorted", compressor.compressorShortedStickyFault)
+        SmartDashboard.putBoolean("Fault: Compressor is not connected or current is too low", compressor.compressorNotConnectedFault)
+        SmartDashboard.putBoolean("Sticky Fault: Compressor is not connected or current is too low", compressor.compressorNotConnectedStickyFault)
     }
 
     fun shiftUp() {

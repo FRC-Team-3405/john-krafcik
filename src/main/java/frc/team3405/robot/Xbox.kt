@@ -11,8 +11,8 @@ object Xbox {
     const val YButton = 4
     const val LeftBumper = 5
     const val RightBumper = 6
-    const val BackButton = 7
-    const val StartButton = 8
+    const val LeftLowerBumper = 7
+    const val RightLowerBumper = 8
     const val nineButton = 9
     const val tenButton = 10
     const val elevenButton = 11
@@ -23,7 +23,9 @@ object Xbox {
     const val LeftTrigger = 2
     const val RightTrigger = 3
     const val RightX = 4
-    const val RightY = 5
+    const val RightY = 2
+
+    const val PovController = 0
 }
 
 
@@ -39,4 +41,7 @@ class XboxController(val joystick: Joystick) {
 
     val leftY
         get() = joystick.getRawAxis(Xbox.LeftY)
+
+    val povController
+        get() = joystick.getPOV(Xbox.PovController)
 }

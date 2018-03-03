@@ -1,5 +1,6 @@
 package frc.team3405.robot.commands
 
+import edu.wpi.first.wpilibj.Timer
 import edu.wpi.first.wpilibj.command.Command
 import frc.team3405.robot.Robot
 import kotlin.math.atan
@@ -43,7 +44,7 @@ class AutonomousCommand: Command() {
 
     override fun execute() {
         Robot.pneumatics.shiftDown()
-        Robot.driveTrain.driveTime(5.0)
+        Robot.driveTrain.driveTime(3.0)
     }
 
 }

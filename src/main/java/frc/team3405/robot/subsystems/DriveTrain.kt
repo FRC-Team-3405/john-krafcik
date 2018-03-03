@@ -5,9 +5,15 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX
 import edu.wpi.first.wpilibj.Timer
 import edu.wpi.first.wpilibj.command.Subsystem
 import frc.team3405.robot.Robot
+import frc.team3405.robot.Xbox
 import frc.team3405.robot.commands.DriveCommand
+import kotlin.math.max
 
-class DriveTrain : Subsystem() {
+class
+
+
+
+DriveTrain : Subsystem() {
     private val frontRight: TalonSRX = TalonSRX(0) //Right Bottom
     private val frontLeft: TalonSRX = TalonSRX(1) //Left Top
     private val backLeft: TalonSRX = TalonSRX(2) //Left Bottom
@@ -18,9 +24,12 @@ class DriveTrain : Subsystem() {
     }
 
     fun arcadeDrive() {
-        val x = Robot.joystick.leftX
+        val x = Robot.joystick.leftX * .7
         val y = Robot.joystick.leftY
-        val maxOutput = .7
+        var maxOutput = .7
+        if(Robot.joystick.joystick.getRawButton(Xbox.LeftLowerBumper)) {
+            maxOutput += .2
+        }
         val left: Double = (y - x) * maxOutput
         val right: Double = (y + x) * maxOutput
 
@@ -33,9 +42,15 @@ class DriveTrain : Subsystem() {
 
     //For Eastmond
     fun tankDrive() {
-        val leftY = Robot.joystick.leftY
-        val rightY = Robot.joystick.rightY
-        val maxOutput = .7
+        val leftY = Robot.joystick.leftY * 0.7
+        val rightY = Robot.joystick.rightY * 0.7
+        var maxOutput = .9
+        if(Robot.joystick.joystick.getRawButton(Xbox.RightLowerBumper)) {
+            maxOutput += .2
+        } else if(Robot.joystick.joystick.getRawButton(Xbox.LeftLowerBumper)) {
+            maxOutput -= .3
+        }
+
         val left: Double = leftY * maxOutput
         val right: Double = rightY * maxOutput
 
@@ -44,6 +59,27 @@ class DriveTrain : Subsystem() {
 
         frontRight.set(ControlMode.PercentOutput, -right)
         backRight.set(ControlMode.PercentOutput, -right)
+
+        when(Robot.joystick.povController) {
+            0 -> {
+                frontLeft.set(ControlMode.PercentOutput, -.5)
+                backLeft.set(ControlMode.PercentOutput, -.5)
+
+                frontRight.set(ControlMode.PercentOutput, .5)
+                backRight.set(ControlMode.PercentOutput, .5)
+            }
+            180 -> {
+                frontLeft.set(ControlMode.PercentOutput, .5)
+                backLeft.set(ControlMode.PercentOutput, .5)
+
+                frontRight.set(ControlMode.PercentOutput, -.5)
+                backRight.set(ControlMode.PercentOutput, -.5)
+            }
+        }
+    }
+
+    fun driveForward() {
+
     }
 
     fun driveTime(seconds: Double) {
@@ -52,11 +88,11 @@ class DriveTrain : Subsystem() {
         timer.start()
 
         while (timer.get() < seconds) {
-            frontLeft.set(ControlMode.PercentOutput, 0.5)
-            backLeft.set(ControlMode.PercentOutput, 0.5)
+            frontLeft.set(ControlMode.PercentOutput, -0.5)
+            backLeft.set(ControlMode.PercentOutput, -0.5)
 
-            frontRight.set(ControlMode.PercentOutput, -0.5)
-            backRight.set(ControlMode.PercentOutput, -0.5)
+            frontRight.set(ControlMode.PercentOutput, 0.5)
+            backRight.set(ControlMode.PercentOutput, 0.5)
         }
 
         timer.stop()

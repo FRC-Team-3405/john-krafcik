@@ -1,5 +1,6 @@
 package frc.team3405.robot
 
+import edu.wpi.first.wpilibj.CameraServer
 import edu.wpi.first.wpilibj.IterativeRobot
 import edu.wpi.first.wpilibj.Joystick
 import edu.wpi.first.wpilibj.buttons.JoystickButton
@@ -10,8 +11,16 @@ import frc.team3405.robot.subsystems.ConveyorBelt
 import frc.team3405.robot.subsystems.DriveTrain
 import frc.team3405.robot.subsystems.Pneumatics
 import frc.team3405.robot.subsystems.Reporter
+import kotlinx.coroutines.experimental.async
 import main.java.frc.team3405.robot.commands.LiftLeftCommand
 import main.java.frc.team3405.robot.commands.LiftRightCommand
+import org.opencv.imgproc.Imgproc
+import org.opencv.core.Mat
+import edu.wpi.cscore.CvSource
+import edu.wpi.cscore.CvSink
+import edu.wpi.cscore.UsbCamera
+
+
 
 class Robot : IterativeRobot() {
     companion object {
@@ -36,7 +45,6 @@ class Robot : IterativeRobot() {
     lateinit var autonomousCommand: Command
 
     override fun robotInit() {
-        println("HI")
         Robot.highGearButton.whenPressed(ShiftUpCommand())
         Robot.lowGearButton.whenPressed(ShiftDownCommand())
 
@@ -47,7 +55,16 @@ class Robot : IterativeRobot() {
 
         Robot.liftRightButton.whenPressed(LiftRightCommand())
         Robot.dropRightButton.whenPressed(DropRightCommand())
-        println("Button presses ready")
+
+        async {
+            val camera = CameraServer.getInstance().startAutomaticCapture()
+            camera.setResolution(640, 480)
+            val outputStream = CameraServer.getInstance().putVideo("Blur", 720, 480)
+            val source = Mat()
+            while (true) {
+                outputStream.putFrame(source)
+            }
+        }
     }
 
     override fun disabledInit() {}
@@ -58,7 +75,6 @@ class Robot : IterativeRobot() {
     }
 
     override fun teleopInit() {
-        println("I started")
     }
 
     override fun testInit() {}

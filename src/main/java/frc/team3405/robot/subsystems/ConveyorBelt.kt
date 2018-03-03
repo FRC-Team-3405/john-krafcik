@@ -6,24 +6,48 @@ import edu.wpi.first.wpilibj.Spark
 import edu.wpi.first.wpilibj.Talon
 import edu.wpi.first.wpilibj.Victor
 import edu.wpi.first.wpilibj.command.Subsystem
+import frc.team3405.robot.Guitar
 import frc.team3405.robot.Robot
+import frc.team3405.robot.Xbox
 import frc.team3405.robot.commands.BeltCommand
 
 class ConveyorBelt: Subsystem() {
-    val motor = Spark(5) //TODO get port number
+    val motor = Spark(0)
 
     override fun initDefaultCommand() {
         defaultCommand = BeltCommand()
     }
 
-    fun moveBelt() {
-        val direction = Robot.guitar.tiltBar
-        val maxOutput = .3
+    var moving = false
 
+    fun moveBelt() {                                                      motor
+        val direction = Robot.guitar.tiltBar
+        var maxOutput = .7
+        if(Robot.guitar.joystick.getRawButton(Guitar.greenButton)) {
+            maxOutput = .9
+        }
+        moving = false
         when(direction) {
-            0 -> motor.set(maxOutput)
-            180 -> motor.set(-maxOutput)
-            else -> motor.set(0.0)
+            0 -> {
+                motor.set(maxOutput)
+                moving = true
+            }
+            180 -> {
+                motor.set(-maxOutput)
+                moving = true
+            }
+        }
+
+        if(Robot.joystick.joystick.getRawButton(Xbox.tenButton)) {
+            motor.set(-maxOutput)
+            moving = true
+        } else if(Robot.joystick.joystick.getRawButton(Xbox.nineButton)) {
+            motor.set(maxOutput)
+            moving = true
+        }
+
+        if(!moving) {
+            motor.set(0.0)
         }
     }
 }
