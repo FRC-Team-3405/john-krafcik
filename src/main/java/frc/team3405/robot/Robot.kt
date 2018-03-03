@@ -56,10 +56,12 @@ class Robot : IterativeRobot() {
         Robot.liftRightButton.whenPressed(LiftRightCommand())
         Robot.dropRightButton.whenPressed(DropRightCommand())
 
+
+
         async {
             val camera = CameraServer.getInstance().startAutomaticCapture()
             camera.setResolution(640, 480)
-            val outputStream = CameraServer.getInstance().putVideo("Blur", 720, 480)
+            val outputStream = CameraServer.getInstance().putVideo("Blur", 640, 480)
             val source = Mat()
             while (true) {
                 outputStream.putFrame(source)

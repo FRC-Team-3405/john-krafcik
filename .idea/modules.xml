@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/jeff-bezos.iml" filepath="$PROJECT_DIR$/.idea/modules/jeff-bezos.iml" />
-      <module fileurl="file://$PROJECT_DIR$/jeff-bezos.iml" filepath="$PROJECT_DIR$/jeff-bezos.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/jeff-bezos_main.iml" filepath="$PROJECT_DIR$/.idea/modules/jeff-bezos_main.iml" group="jeff-bezos" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/jeff-bezos_test.iml" filepath="$PROJECT_DIR$/.idea/modules/jeff-bezos_test.iml" group="jeff-bezos" />
     </modules>

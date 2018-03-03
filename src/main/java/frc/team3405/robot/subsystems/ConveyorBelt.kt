@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode
 import com.ctre.phoenix.motorcontrol.can.TalonSRX
 import edu.wpi.first.wpilibj.Spark
 import edu.wpi.first.wpilibj.Talon
+import edu.wpi.first.wpilibj.Timer
 import edu.wpi.first.wpilibj.Victor
 import edu.wpi.first.wpilibj.command.Subsystem
 import frc.team3405.robot.Guitar
@@ -49,5 +50,19 @@ class ConveyorBelt: Subsystem() {
         if(!moving) {
             motor.set(0.0)
         }
+    }
+
+    fun moveBeltTimed(seconds: Double) {
+        var maxOutput = .9
+        motor.set(maxOutput)
+        val timer = Timer().apply {
+            reset()
+            start()
+        }
+        while(timer.get() < seconds) {
+
+        }
+        timer.stop()
+        motor.set(0.0)
     }
 }

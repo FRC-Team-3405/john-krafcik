@@ -1,5 +1,6 @@
 package frc.team3405.robot.commands
 
+import edu.wpi.first.wpilibj.DriverStation
 import edu.wpi.first.wpilibj.Timer
 import edu.wpi.first.wpilibj.command.Command
 import frc.team3405.robot.Robot
@@ -36,15 +37,25 @@ fun getDirections(switchPosition: SwitchPosition, startingPosition: StartingPosi
 }
 
 class AutonomousCommand: Command() {
+
     init {
         requires(Robot.pneumatics)
         requires(Robot.driveTrain)
+        requires(Robot.conveyor)
     }
     override fun isFinished() = true
 
     override fun execute() {
         Robot.pneumatics.shiftDown()
         Robot.driveTrain.driveTime(3.0)
+        when(DriverStation.getInstance().gameSpecificMessage[0]) {
+            'L' -> {
+
+            }
+            'R' -> {
+                Robot.conveyor.moveBeltTimed(3.0)
+            }
+        }
     }
 
 }
