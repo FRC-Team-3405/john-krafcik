@@ -28,7 +28,7 @@ DriveTrain : Subsystem() {
         val y = Robot.joystick.leftY
         var maxOutput = .7
         if(Robot.joystick.joystick.getRawButton(Xbox.LeftLowerBumper)) {
-            maxOutput += .2
+            maxOutput = 1.0
         }
         val left: Double = (y - x) * maxOutput
         val right: Double = (y + x) * maxOutput
