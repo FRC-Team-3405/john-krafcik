@@ -9,7 +9,7 @@ class BeltCommand: Command() {
     }
 
     override fun execute() {
-        Robot.conveyor.moveBelt()
+//        Robot.conveyor.moveBelt()
     }
 
     override fun isFinished(): Boolean = false
