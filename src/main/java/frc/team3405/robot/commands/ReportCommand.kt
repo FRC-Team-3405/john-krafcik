@@ -5,11 +5,11 @@ import frc.team3405.robot.Robot
 
 class ReportCommand: Command() {
     init {
-        requires(Robot.reporter)
+//        requires(Robot.reporter)
     }
     override fun isFinished() = false
 
     override fun execute() {
-        Robot.reporter.report()
+//        Robot.reporter.report()
     }
 }

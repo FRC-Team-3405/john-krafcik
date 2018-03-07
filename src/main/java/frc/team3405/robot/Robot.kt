@@ -26,7 +26,7 @@ class Robot : IterativeRobot() {
     companion object {
         val driveTrain = DriveTrain()
         val pneumatics = Pneumatics()
-        val reporter = Reporter()
+//        val reporter = Reporter()
         val joystick = XboxController(Joystick(0))
         val guitar = GuitarController(Joystick(1))
         val conveyor = ConveyorBelt()
@@ -58,15 +58,15 @@ class Robot : IterativeRobot() {
 
 
 
-        async {
-            val camera = CameraServer.getInstance().startAutomaticCapture()
-            camera.setResolution(640, 480)
-            val outputStream = CameraServer.getInstance().putVideo("Blur", 640, 480)
-            val source = Mat()
-            while (true) {
-                outputStream.putFrame(source)
-            }
-        }
+//        async {
+//            val camera = CameraServer.getInstance().startAutomaticCapture()
+//            camera.setResolution(640, 480)
+//            val outputStream = CameraServer.getInstance().putVideo("Blur", 640, 480)
+//            val source = Mat()
+//            while (true) {
+//                outputStream.putFrame(source)
+//            }
+//        }
     }
 
     override fun disabledInit() {}
