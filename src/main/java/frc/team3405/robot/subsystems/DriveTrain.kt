@@ -106,5 +106,16 @@ DriveTrain : Subsystem() {
 
     }
 
+    fun makeMotorsEncoders(vararg listOfMotors:TalonSRX) {
+        listOfMotors.forEach { talon ->
+            talon.apply {
+            }
+            talon.changeControlMode(ControlMode.Position); //Change control mode of talon, default is PercentVbus (-1.0 to 1.0)
+            talon.setFeedbackDevice(FeedbackDevice.QuadEncoder); //Set the feedback device that is hooked up to the talon
+            talon.setPID(0.5, 0.001, 0.0); //Set the PID constants (p, i, d)
+            talon.enableControl(); //Enable PID control on the talon
+        }
+    }
+
 }
 
