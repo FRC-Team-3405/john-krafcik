@@ -41,7 +41,7 @@ class AutonomousCommand: Command() {
     init {
         requires(Robot.pneumatics)
         requires(Robot.driveTrain)
-        requires(Robot.conveyor)
+//        requires(Robot.conveyor)
     }
     override fun isFinished() = true
 
@@ -55,7 +55,7 @@ class AutonomousCommand: Command() {
 
                 }
                 'R' -> {
-                    Robot.conveyor.moveBeltTimed(3.0)
+//                    Robot.conveyor.moveBeltTimed(3.0)
                 }
             }
         }

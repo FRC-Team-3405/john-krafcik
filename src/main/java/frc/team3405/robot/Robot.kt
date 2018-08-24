@@ -29,7 +29,7 @@ class Robot : IterativeRobot() {
 //        val reporter = Reporter()
         val joystick = XboxController(Joystick(0))
         val guitar = GuitarController(Joystick(1))
-        val conveyor = ConveyorBelt()
+        //val conveyor = ConveyorBelt()
 
         //Gear shifting buttons
         val highGearButton = JoystickButton(joystick.joystick, Xbox.RightBumper)

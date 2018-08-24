@@ -5,7 +5,7 @@ import frc.team3405.robot.Robot
 
 class BeltCommand: Command() {
     init {
-        requires(Robot.conveyor)
+//        requires(Robot.conveyor)
     }
 
     override fun execute() {
