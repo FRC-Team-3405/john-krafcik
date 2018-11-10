@@ -22,22 +22,22 @@ class ConveyorBelt: Subsystem() {
     var moving = false
 
     fun moveBelt() {                                                      motor
-        val direction = Robot.guitar.tiltBar
+//        val direction = Robot.guitar.tiltBar
         var maxOutput = .7
-        if(Robot.guitar.joystick.getRawButton(Guitar.greenButton)) {
-            maxOutput = .9
-        }
+//        if(Robot.guitar.joystick.getRawButton(Guitar.greenButton)) {
+//            maxOutput = .9
+//        }
         moving = false
-        when(direction) {
-            0 -> {
-                motor.set(maxOutput)
-                moving = true
-            }
-            180 -> {
-                motor.set(-maxOutput)
-                moving = true
-            }
-        }
+//        when(direction) {
+//            0 -> {
+//                motor.set(maxOutput)
+//                moving = true
+//            }
+//            180 -> {
+//                motor.set(-maxOutput)
+//                moving = true
+//            }
+//        }
 
         if(Robot.joystick.joystick.getRawButton(Xbox.tenButton)) {
             motor.set(-maxOutput)

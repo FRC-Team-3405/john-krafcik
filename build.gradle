@@ -1,5 +1,5 @@
 buildscript {
-    ext.kotlin_version = '1.2.61'
+    ext.kotlin_version = '1.2.71'
     repositories {
         mavenCentral()
     }
@@ -61,4 +61,9 @@ jar {
 
 task wrapper(type: Wrapper) {
     gradleVersion = '4.7'
+}
+kotlin {
+    experimental {
+        coroutines "enable"
+    }
 }

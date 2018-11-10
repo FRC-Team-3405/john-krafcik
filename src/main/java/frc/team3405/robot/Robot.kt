@@ -19,7 +19,7 @@ import org.opencv.core.Mat
 import edu.wpi.cscore.CvSource
 import edu.wpi.cscore.CvSink
 import edu.wpi.cscore.UsbCamera
-
+import kotlinx.coroutines.experimental.launch
 
 
 class Robot : IterativeRobot() {
@@ -28,8 +28,8 @@ class Robot : IterativeRobot() {
         val pneumatics = Pneumatics()
 //        val reporter = Reporter()
         val joystick = XboxController(Joystick(0))
-        val guitar = GuitarController(Joystick(1))
-        //val conveyor = ConveyorBelt()
+//        val guitar = GuitarController(Joystick(1))
+        val conveyor = ConveyorBelt()
 
         //Gear shifting buttons
         val highGearButton = JoystickButton(joystick.joystick, Xbox.RightBumper)
@@ -57,16 +57,15 @@ class Robot : IterativeRobot() {
         Robot.dropRightButton.whenPressed(DropRightCommand())
 
 
-
-//        async {
-//            val camera = CameraServer.getInstance().startAutomaticCapture()
-//            camera.setResolution(640, 480)
-//            val outputStream = CameraServer.getInstance().putVideo("Blur", 640, 480)
-//            val source = Mat()
-//            while (true) {
-//                outputStream.putFrame(source)
-//            }
-//        }
+        launch {
+            val camera = CameraServer.getInstance().startAutomaticCapture()
+            camera.setResolution(640, 480)
+            val outputStream = CameraServer.getInstance().putVideo("Front", 640, 480)
+            val source = Mat()
+            while (true) {
+                outputStream.putFrame(source)
+            }
+        }
     }
 
     override fun disabledInit() {}

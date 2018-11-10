@@ -9,9 +9,9 @@ class DropWingsCommand: Command() {
     }
 
     override fun execute() {
-        if(Robot.guitar.longButtonPressed) {
-            //TODO
-        }
+//        if(Robot.guitar.longButtonPressed) {
+//            //TODO
+//        }
     }
 
     override fun isFinished() = false

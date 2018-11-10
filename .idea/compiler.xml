@@ -4,6 +4,8 @@
     <bytecodeTargetLevel>
       <module name="jeff-bezos_main" target="1.10" />
       <module name="jeff-bezos_test" target="1.10" />
+      <module name="john-krafcik_main" target="1.10" />
+      <module name="john-krafcik_test" target="1.10" />
     </bytecodeTargetLevel>
   </component>
 </project>

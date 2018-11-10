@@ -41,7 +41,7 @@ class AutonomousCommand: Command() {
     init {
         requires(Robot.pneumatics)
         requires(Robot.driveTrain)
-//        requires(Robot.conveyor)
+        requires(Robot.conveyor)
     }
     override fun isFinished() = true
 
