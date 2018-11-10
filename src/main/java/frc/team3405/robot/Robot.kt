@@ -6,20 +6,13 @@ import edu.wpi.first.wpilibj.Joystick
 import edu.wpi.first.wpilibj.buttons.JoystickButton
 import edu.wpi.first.wpilibj.command.Command
 import edu.wpi.first.wpilibj.command.Scheduler
-import frc.team3405.robot.commands.*
-import frc.team3405.robot.subsystems.ConveyorBelt
+import frc.team3405.robot.commands.AutonomousCommand
+import frc.team3405.robot.commands.ShiftDownCommand
+import frc.team3405.robot.commands.ShiftUpCommand
 import frc.team3405.robot.subsystems.DriveTrain
 import frc.team3405.robot.subsystems.Pneumatics
-import frc.team3405.robot.subsystems.Reporter
-import kotlinx.coroutines.experimental.async
-import main.java.frc.team3405.robot.commands.LiftLeftCommand
-import main.java.frc.team3405.robot.commands.LiftRightCommand
-import org.opencv.imgproc.Imgproc
-import org.opencv.core.Mat
-import edu.wpi.cscore.CvSource
-import edu.wpi.cscore.CvSink
-import edu.wpi.cscore.UsbCamera
 import kotlinx.coroutines.experimental.launch
+import org.opencv.core.Mat
 
 
 class Robot : IterativeRobot() {
@@ -28,8 +21,6 @@ class Robot : IterativeRobot() {
         val pneumatics = Pneumatics()
 //        val reporter = Reporter()
         val joystick = XboxController(Joystick(0))
-//        val guitar = GuitarController(Joystick(1))
-        val conveyor = ConveyorBelt()
 
         //Gear shifting buttons
         val highGearButton = JoystickButton(joystick.joystick, Xbox.RightBumper)
@@ -47,14 +38,6 @@ class Robot : IterativeRobot() {
     override fun robotInit() {
         Robot.highGearButton.whenPressed(ShiftUpCommand())
         Robot.lowGearButton.whenPressed(ShiftDownCommand())
-
-        Robot.dropWingsButton.whenPressed(DropWingsCommand())
-
-        Robot.liftLeftButton.whenPressed(LiftLeftCommand())
-        Robot.dropLeftButton.whenPressed(DropLeftCommand())
-
-        Robot.liftRightButton.whenPressed(LiftRightCommand())
-        Robot.dropRightButton.whenPressed(DropRightCommand())
 
 
         launch {
