@@ -4,12 +4,13 @@ import edu.wpi.first.wpilibj.CameraServer
 import edu.wpi.first.wpilibj.IterativeRobot
 import edu.wpi.first.wpilibj.Joystick
 import edu.wpi.first.wpilibj.buttons.JoystickButton
-import edu.wpi.first.wpilibj.command.Command
 import edu.wpi.first.wpilibj.command.Scheduler
 import frc.team3405.robot.commands.AutonomousCommand
 import frc.team3405.robot.commands.ShiftDownCommand
 import frc.team3405.robot.commands.ShiftUpCommand
+import frc.team3405.robot.subsystems.Accelerometer
 import frc.team3405.robot.subsystems.DriveTrain
+import frc.team3405.robot.subsystems.Gyroscope
 import frc.team3405.robot.subsystems.Pneumatics
 import kotlinx.coroutines.experimental.launch
 import org.opencv.core.Mat
@@ -20,25 +21,18 @@ class Robot : IterativeRobot() {
         val driveTrain = DriveTrain()
         val pneumatics = Pneumatics()
 //        val reporter = Reporter()
+        val gyroscope = Gyroscope()
+        val accelerometer = Accelerometer()
         val joystick = XboxController(Joystick(0))
 
         //Gear shifting buttons
         val highGearButton = JoystickButton(joystick.joystick, Xbox.RightBumper)
         val lowGearButton = JoystickButton(joystick.joystick, Xbox.LeftBumper)
-
-        val dropWingsButton = JoystickButton(joystick.joystick, Xbox.AButton)
-        val liftLeftButton = JoystickButton(joystick.joystick, Xbox.XButton)
-        val liftRightButton = JoystickButton(joystick.joystick, Xbox.BButton)
-        val dropLeftButton = JoystickButton(joystick.joystick, Xbox.nineButton)
-        val dropRightButton = JoystickButton(joystick.joystick, Xbox.tenButton)
     }
-
-    lateinit var autonomousCommand: Command
 
     override fun robotInit() {
         Robot.highGearButton.whenPressed(ShiftUpCommand())
         Robot.lowGearButton.whenPressed(ShiftDownCommand())
-
 
         launch {
             val camera = CameraServer.getInstance().startAutomaticCapture()
@@ -54,8 +48,11 @@ class Robot : IterativeRobot() {
     override fun disabledInit() {}
 
     override fun autonomousInit() {
-        autonomousCommand = AutonomousCommand()
-        autonomousCommand.start()
+        //Reset all robot subsystems to starting values
+        gyroscope.initialize()
+        gyroscope.reset()
+        pneumatics.shiftDown()
+        AutonomousCommand().start()
     }
 
     override fun teleopInit() {
@@ -68,10 +65,14 @@ class Robot : IterativeRobot() {
 
 
     override fun autonomousPeriodic() {
-        Scheduler.getInstance().run()
+
     }
 
     override fun teleopPeriodic() {
+
+    }
+
+    override fun robotPeriodic() {
         Scheduler.getInstance().run()
     }
 

@@ -7,13 +7,10 @@ import edu.wpi.first.wpilibj.command.Subsystem
 import frc.team3405.robot.Robot
 import frc.team3405.robot.Xbox
 import frc.team3405.robot.commands.DriveCommand
+import kotlin.math.PI
 import kotlin.math.max
 
-class
-
-
-
-DriveTrain : Subsystem() {
+class DriveTrain : Subsystem() {
     private val frontRight: TalonSRX = TalonSRX(0) //Right Bottom
     private val frontLeft: TalonSRX = TalonSRX(1) //Left Top
     private val backLeft: TalonSRX = TalonSRX(2) //Left Bottom
@@ -78,10 +75,6 @@ DriveTrain : Subsystem() {
         }
     }
 
-    fun driveForward() {
-
-    }
-
     fun driveTime(seconds: Double) {
         val timer = Timer()
         timer.reset()
@@ -103,19 +96,19 @@ DriveTrain : Subsystem() {
 
         frontRight.set(ControlMode.PercentOutput, 0.0)
         backRight.set(ControlMode.PercentOutput, 0.0)
-
     }
 
-//    fun makeMotorsEncoders(vararg listOfMotors:TalonSRX) {
-//        listOfMotors.forEach { talon ->
-//            talon.apply {
-//            }
-//            talon.changeControlMode(ControlMode.Position); //Change control mode of talon, default is PercentVbus (-1.0 to 1.0)
-//            talon.setFeedbackDevice(FeedbackDevice.QuadEncoder); //Set the feedback device that is hooked up to the talon
-//            talon.setPID(0.5, 0.001, 0.0); //Set the PID constants (p, i, d)
-//            talon.enableControl(); //Enable PID control on the talon
-//        }
-//    }
+    // -\|/+
+    fun drive(angle: Double, power: Double) {
+        val left = power - (angle / PI)
+        val right = power + (angle / PI)
+
+        frontRight.set(ControlMode.PercentOutput, -right)
+        backRight.set(ControlMode.PercentOutput, -right)
+
+        frontLeft.set(ControlMode.PercentOutput, left)
+        backLeft.set(ControlMode.PercentOutput, left)
+    }
 
 }
 
