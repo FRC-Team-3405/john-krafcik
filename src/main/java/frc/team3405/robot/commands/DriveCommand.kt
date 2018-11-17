@@ -11,8 +11,11 @@ class DriveCommand : Command() {
     }
 
     override fun execute() {
-        Robot.driveTrain.arcadeDrive()
-//        Robot.driveTrain.tankDrive()
+        if(Robot.tankDrive) {
+            Robot.driveTrain.tankDrive()
+        } else {
+            Robot.driveTrain.arcadeDrive()
+        }
     }
 
     override fun isFinished(): Boolean = false

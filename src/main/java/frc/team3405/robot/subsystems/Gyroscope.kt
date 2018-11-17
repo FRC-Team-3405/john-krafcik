@@ -8,7 +8,7 @@ import frc.team3405.robot.commands.RunGyroscopeCommand
 
 class Gyroscope: Subsystem(), Sensor {
 
-    private val gyroscope = AnalogGyro(2)
+    private val gyroscope = AnalogGyro(1)
 
     override fun initDefaultCommand() {
         defaultCommand = RunGyroscopeCommand()

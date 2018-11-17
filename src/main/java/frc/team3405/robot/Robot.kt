@@ -8,12 +8,9 @@ import edu.wpi.first.wpilibj.command.Scheduler
 import frc.team3405.robot.commands.AutonomousCommand
 import frc.team3405.robot.commands.ShiftDownCommand
 import frc.team3405.robot.commands.ShiftUpCommand
-import frc.team3405.robot.subsystems.Accelerometer
-import frc.team3405.robot.subsystems.DriveTrain
-import frc.team3405.robot.subsystems.Gyroscope
-import frc.team3405.robot.subsystems.Pneumatics
+import frc.team3405.robot.commands.SwitchDriveModeCommand
+import frc.team3405.robot.subsystems.*
 import kotlinx.coroutines.experimental.launch
-import org.opencv.core.Mat
 
 
 class Robot : IterativeRobot() {
@@ -23,25 +20,34 @@ class Robot : IterativeRobot() {
 //        val reporter = Reporter()
         val gyroscope = Gyroscope()
         val accelerometer = Accelerometer()
+        val cameraSwivel = CameraSwivel()
         val joystick = XboxController(Joystick(0))
 
         //Gear shifting buttons
         val highGearButton = JoystickButton(joystick.joystick, Xbox.RightBumper)
         val lowGearButton = JoystickButton(joystick.joystick, Xbox.LeftBumper)
+
+        //Drive mode switching button
+        val nineButton = JoystickButton(joystick.joystick, Xbox.nineButton)
+
+        var tankDrive = false
     }
 
     override fun robotInit() {
         Robot.highGearButton.whenPressed(ShiftUpCommand())
         Robot.lowGearButton.whenPressed(ShiftDownCommand())
+        Robot.nineButton.whenPressed(SwitchDriveModeCommand())
 
         launch {
             val camera = CameraServer.getInstance().startAutomaticCapture()
+            val axisCamera = CameraServer.getInstance().addAxisCamera("axis-camera.local")
             camera.setResolution(640, 480)
-            val outputStream = CameraServer.getInstance().putVideo("Front", 640, 480)
-            val source = Mat()
-            while (true) {
-                outputStream.putFrame(source)
-            }
+            axisCamera.setResolution(640, 480)
+//            val outputStream = CameraServer.getInstance().putVideo("Front", 640, 480)
+//            val source = Mat()
+//            while (true) {
+//                outputStream.putFrame(source)
+//            }
         }
     }
 
@@ -52,10 +58,15 @@ class Robot : IterativeRobot() {
         gyroscope.initialize()
         gyroscope.reset()
         pneumatics.shiftDown()
+        cameraSwivel.resetServos()
         AutonomousCommand().start()
     }
 
     override fun teleopInit() {
+        gyroscope.initialize()
+        gyroscope.reset()
+        pneumatics.shiftDown()
+        cameraSwivel.resetServos()
     }
 
     override fun testInit() {}
